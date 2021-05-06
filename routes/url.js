@@ -27,12 +27,12 @@ router.post(
 
 		//Check long url
 		if (!vaildUrl.isUri(longUrl)) {
-			res.status(401).json('Invalid URL')
+			return res.status(401).json('Invalid URL')
 		} else {
 			const url = await Url.findOne({ longUrl })
 
 			if (url) {
-				res.status(200).json(url)
+				return res.status(200).json(url)
 			} else {
 				const shortUrl = baseUrl + '/' + urlCode
 
@@ -40,7 +40,7 @@ router.post(
 
 				await newUrl.save()
 
-				res.status(201).json(newUrl)
+				return res.status(201).json(newUrl)
 			}
 		}
 	})
